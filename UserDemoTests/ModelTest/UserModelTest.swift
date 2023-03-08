@@ -12,6 +12,8 @@ import CoreLocation
 final class UserModelTest: XCTestCase {
 
     var user:User!
+    var secondUser:User!
+
     var address:Address!
     var geolocation:GeoLocation!
     var invalidGeoLocation:GeoLocation!
@@ -20,6 +22,8 @@ final class UserModelTest: XCTestCase {
         geolocation = GeoLocation(lat: "12.2", lng: "12312312.121")
         invalidGeoLocation = GeoLocation(lat: "latitude", lng: "12312312.121")
         address = Address(street: "Street", city: "City", zipCode: "1231231", suite: "suite", geo: geolocation)
+        user = User(id: 21321, username: "Username", name: "Shrawan", email: "shrawan25.sharma@gmail.com", website: "google.com", phone: "+234234", company: Company(name: "Google", bs: "ba", catchPhrase: "Catch phrase"), address: address)
+        secondUser = user
     }
 
     override func tearDownWithError() throws {
@@ -46,6 +50,10 @@ final class UserModelTest: XCTestCase {
         XCTAssertTrue(invalidGeoLocation.locationCoordinate == nil)
     }
     
+    
+    func testTwoUserAreEquatableOrNot() throws{
+        XCTAssertTrue(user == secondUser)
+    }
     
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
