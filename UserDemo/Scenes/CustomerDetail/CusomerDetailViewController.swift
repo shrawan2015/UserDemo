@@ -50,10 +50,9 @@ extension CusomerDetailViewController{
     
     private func addMapViewContainer(){
         let mapViewController = MapViewController()
-        mapViewController.user = user
+        mapViewController.setUp(user)
         self.add(mapViewController, frame: mapViewContainerOutlet.frame)
     }
-    
 }
 
 

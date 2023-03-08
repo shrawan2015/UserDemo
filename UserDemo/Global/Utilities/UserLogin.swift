@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - IsUserLogin
-public class IsUserLogin {
+public class UserLogin {
     
     public static var hasOnboarded: Bool {
         get {

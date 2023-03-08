@@ -17,7 +17,7 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var loginButtonOutlet: UIButton!
     
     // MARK: - Internal Properties
-    let loginViewModel = LoginViewModel(interator: LoginInteractor())
+    let loginViewModel = LoginViewModel(service: LoginService())
 }
 
 // MARK: - View Life Cycle
@@ -64,9 +64,6 @@ extension LoginViewController{
 // MARK: - Navigation
 extension LoginViewController{
     func navigateToUserListScreen(){
-        let rootVC = CustomerListViewController()
-        let navController = UINavigationController(rootViewController: rootVC)
-        let window = UIWindow.key
-        window?.rootViewController = navController
+        appDelegate?.setRootViewController(UINavigationController(rootViewController: CustomerListViewController()))
     }
 }

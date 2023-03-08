@@ -1,5 +1,5 @@
 //
-//  UserInteractor.swift
+//  UserService.swift
 //  UserDemo
 //
 //  Created by Shrawan Kumar sharma on 05/03/23.
@@ -7,14 +7,19 @@
 
 import Foundation
 
-protocol UserInteractorProtocol{
+protocol UserServiceProtocol{
     func fetchUserList(completion: @escaping ([User]?, Error?) -> Void)
 }
 
-class UserInteractor:UserInteractorProtocol{
+// MARK: - UserService
+class UserService{
 
+}
+
+// MARK: - UserInteractorProtocol
+extension UserService:UserServiceProtocol{
     func fetchUserList(completion: @escaping ([User]?, Error?) -> Void) {
-        AFWrapper.sharedInstance.fetchData(using:"users"){ data,error in
+        AFWrapper.sharedInstance.fetchData(using:EndPoint.userList){ data,error in
             guard let data = data else{
                 if let error = error{
                     completion(nil, error)
@@ -28,7 +33,5 @@ class UserInteractor:UserInteractorProtocol{
                 completion(nil, error!)
             }
         }
-        
     }
-
 }

@@ -9,6 +9,7 @@ import Foundation
 
 struct EndPoint {
     static let websiteURL = "https://jsonplaceholder.typicode.com"
+    static let userList = "users"
 }
 
 struct Constants{
@@ -16,4 +17,5 @@ struct Constants{
     static let emptyPasswordMessage = "Please enter password"
     static let passwordErrorMessage = "Minimum password length must be in 6 characters."
     static let emptyCountryMessage = "Please choose country"
+    static let invalidCredentialMessage = "User name or password incorrect."
 }

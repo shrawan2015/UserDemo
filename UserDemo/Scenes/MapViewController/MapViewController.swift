@@ -15,7 +15,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapViewOutlet: MKMapView!
     
     // MARK: - Internal Properties
-    var user: User?
+    private var user: User?
 }
 
 // MARK: - View Life Cycle
@@ -27,7 +27,7 @@ extension MapViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setUpView()
+        viewConfiguration()
     }
     
 }
@@ -35,7 +35,11 @@ extension MapViewController{
 // MARK: - Initial Configuration
 extension MapViewController{
     
-    private func setUpView(){
+    func setUp(_ user:User?){
+        self.user = user
+    }
+    
+    private func viewConfiguration(){
         if let user = user , let locationCoordinate = user.address.geo.locationCoordinate{
             let annotation = MKPointAnnotation()
             annotation.title = user.name

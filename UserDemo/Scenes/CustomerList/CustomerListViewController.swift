@@ -14,7 +14,7 @@ class CustomerListViewController: BaseViewController {
     @IBOutlet weak var tableViewOutlet: BaseTableView!
     
     // MARK: - Internal Properties
-    let viewModel = UserViewModel(interator: UserInteractor())
+    let viewModel = UserViewModel(service: UserService())
 }
 
 // MARK: - View Life Cycle
@@ -30,7 +30,7 @@ extension CustomerListViewController{
     
     private func initialSetup(){
         tableSetup()
-        checkStatus()
+        viewState()
         fetchUserList()
         navigationViewSeup()
     }
@@ -66,11 +66,10 @@ extension CustomerListViewController{
 // MARK: - Private Methods
 extension CustomerListViewController{
     
-    private func checkStatus(){
+    private func viewState(){
         switch viewModel.state{
         case .initial , .loading:
             tableViewOutlet.setTableViewEmptyMessage("Loading....")
-            //self.showLoadingView()
             print("initial")
         case .loaded:
             tableViewOutlet.restore()
@@ -122,7 +121,7 @@ extension CustomerListViewController{
     func fetchUserList(){
         viewModel.fetchData { [weak self] in
             DispatchQueue.main.async {
-                self?.checkStatus()
+                self?.viewState()
             }
         }
     }

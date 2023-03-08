@@ -10,44 +10,52 @@ import Foundation
 // MARK: - LoginViewModel
 final class LoginViewModel {
   
-    private let interator:LoginInteractorProtocol?
+    private let service:LoginServiceProtocol?
     
-    init(interator: LoginInteractorProtocol?) {
-        self.interator = interator
+    init(service: LoginServiceProtocol?) {
+        self.service = service
     }
 }
-// MARK: - Methods
+
+// MARK: - Private Methods
 extension LoginViewModel{
-    // MARK: - Validation
-    func login(request:LoginRequestModel,  completion: @escaping (LoginState) -> Void) {
-        let username = request.username
-        let password = request.password
-        let country = request.country
-        
-        if username.isEmpty {
-            completion(LoginState.errorMessage(Constants.emptyUsernameMessage))
-            return
+
+    private func validateLogin(request:LoginRequestModel) -> LoginState{
+        if request.username.isEmpty {
+            return LoginState.errorMessage(Constants.emptyUsernameMessage)
         }
         
-        if password.isEmpty {
-            completion(LoginState.errorMessage(Constants.emptyPasswordMessage))
-            return
-        } else if inValidateTextLength(password) {
-            completion(LoginState.errorMessage(Constants.passwordErrorMessage))
-            return
+        if request.password.isEmpty {
+            return(LoginState.errorMessage(Constants.emptyPasswordMessage))
+            
+        } else if inValidateTextLength(request.password) {
+            return LoginState.errorMessage(Constants.passwordErrorMessage)
         }
         
-        if country.isEmpty{
-            completion(LoginState.errorMessage(Constants.emptyCountryMessage))
-            return
+        if request.country.isEmpty{
+            return LoginState.errorMessage(Constants.emptyCountryMessage)
         }
-        
-        interator?.login(request) { response in
-            completion(response)
-        }
+        return .loginSuccess
     }
     
+   
     private func inValidateTextLength(_ text: String) -> Bool {
         return (text.count < 6 )
     }
+}
+
+// MARK: - API Service
+extension LoginViewModel{
+    
+    func login(request:LoginRequestModel,  completion: @escaping (LoginState) -> Void) {
+        let isValidCredential = validateLogin(request: request)
+        if  isValidCredential == .loginSuccess{
+            service?.login(request) { response in
+                completion(response)
+            }
+        }else{
+            completion(isValidCredential)
+        }
+    }
+    
 }

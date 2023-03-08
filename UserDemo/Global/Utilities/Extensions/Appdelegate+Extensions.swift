@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 extension AppDelegate{
-    final func checkLoginStatus(){
-        if IsUserLogin.hasOnboarded{
+    final func applicationState(){
+        if UserLogin.hasOnboarded{
             let navController = UINavigationController(rootViewController: CustomerListViewController())
             setRootViewController(navController,animated: true)
         }else{

@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum LoginState{
+enum LoginState:Equatable{
     case errorMessage(String)
     case loginSuccess
 }
