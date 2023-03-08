@@ -7,8 +7,13 @@
 
 import Foundation
 
+protocol LoginViewModelProtocol{
+    func login(request:LoginRequestModel,  completion: @escaping (LoginState) -> Void)
+    func validateLogin(request:LoginRequestModel) -> LoginState
+}
+
 // MARK: - LoginViewModel
-final class LoginViewModel {
+final class LoginViewModel:LoginViewModelProtocol {
   
     private let service:LoginServiceProtocol?
     
@@ -20,7 +25,7 @@ final class LoginViewModel {
 // MARK: - Private Methods
 extension LoginViewModel{
 
-    private func validateLogin(request:LoginRequestModel) -> LoginState{
+     func validateLogin(request:LoginRequestModel) -> LoginState{
         if request.username.isEmpty {
             return LoginState.errorMessage(Constants.emptyUsernameMessage)
         }

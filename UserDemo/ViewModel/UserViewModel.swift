@@ -20,7 +20,7 @@ class UserViewModel{
     var state:ViewState = .initial
     private let service:UserServiceProtocol?
    
-    init(service: UserService?) {
+    init(service: UserServiceProtocol?) {
         self.service = service
     }
 }

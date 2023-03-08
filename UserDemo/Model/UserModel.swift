@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 
+
 struct User: Codable, Identifiable {
     let id: Int
     let username: String
@@ -88,6 +89,12 @@ extension GeoLocation{
     }
 }
 
+extension CLLocationCoordinate2D:Equatable{
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+    }
+}
+
 // MARK: - Company
 public struct Company: Codable {
     let name: String
@@ -101,3 +108,8 @@ public struct Company: Codable {
     }
 }
 
+extension User: Equatable{
+    static func == (lhs: User, rhs: User) -> Bool {
+        lhs.id == rhs.id
+    }
+}
